@@ -16,6 +16,7 @@ class DonationFee
     private $commissionPercentage;
 
 
+
     public function __construct($donation, $commissionPercentage)
     {
         $this->donation = $donation;
@@ -30,5 +31,12 @@ class DonationFee
         /** @var TYPE_NAME $commission */
         $commission = $this->donation/$this->commissionPercentage;
         return $commission;
+    }
+
+
+    public function getAmountCollected()
+    {
+        $amount = $this->donation-$this->getCommissionAmount();
+        return $amount;
     }
 }
