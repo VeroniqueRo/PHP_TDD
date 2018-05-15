@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use App\DonationFee;
+use ClassesWithParents\E;
+use Psy\Exception\ErrorException;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,10 +35,7 @@ class DonationFeeTest extends TestCase
 
     }
 
-    /**
-     * @param $result
-     */
-    public function testgetAmountCollectedGetter()
+    public function testGetAmountCollectedGetter()
     {
         // Etant donné une commission de 10% le porteur du projet reçoit un montant de 90
         $donationFees = new DonationFee(100, 10);
@@ -47,7 +46,14 @@ class DonationFeeTest extends TestCase
         // Alors le montant perçu doit être de 90
         $expected = 90;
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testException()
+    {
+        $this->expectException(\Exception::class);
+        $donationFees = new DonationFee(500, 50);
 
     }
+
 
 }

@@ -19,13 +19,17 @@ class DonationFee
 
     public function __construct($donation, $commissionPercentage)
     {
+
+        if ($commissionPercentage <= 0 || $commissionPercentage > 30)
+        {
+            throw new \Exception('Le montant de la commission est invalide');
+        }
+
         $this->donation = $donation;
         $this->commissionPercentage = $commissionPercentage;
+
     }
 
-    /**
-     * @return float|int
-     */
     public function getCommissionAmount()
     {
         /** @var TYPE_NAME $commission */
@@ -33,10 +37,12 @@ class DonationFee
         return $commission;
     }
 
-
     public function getAmountCollected()
     {
         $amount = $this->donation-$this->getCommissionAmount();
         return $amount;
     }
+
+
+
 }
