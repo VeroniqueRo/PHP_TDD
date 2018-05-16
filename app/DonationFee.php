@@ -19,6 +19,7 @@ class DonationFee
 
 
 
+
     public function __construct($donation, $commissionPercentage)
     {
 
@@ -66,6 +67,26 @@ class DonationFee
         echo "\nEt les frais fixes de ".(Commission::fixedFee/100)." Euros";
         echo "\nAlors le montant de la commission finale est de ".($fixedAndCommission/100)." Euros\n";
         return $fixedAndCommission;
+    }
+
+    public function getSummary()
+    {
+        $summary = array (
+            "donation" => $this->donation,
+            "fixedFee" => Commission::fixedFee,
+            "commission" => $this->getCommissionAmount(),
+            "fixedAndCollected" => $this->getFixedAndCommissionFeeAmount(),
+            "amountCollected" => $this->donation-$this->getFixedAndCommissionFeeAmount()
+        );
+        echo "\nValeurs du tableau Summary \n";
+        foreach ($summary as $key => $value)
+        {
+            echo "Clé : ". $key . " | Valeur : ". $value . " \n";
+
+        }
+
+        return $summary;
+
     }
 
 }

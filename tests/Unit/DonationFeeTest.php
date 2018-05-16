@@ -89,4 +89,28 @@ class DonationFeeTest extends TestCase
 
     }
 
+    public function testGetSummaryFailure()
+    {
+        // Etant donné un tableau associatif contenant 5 clés et leurs valeurs associées
+        $donationFees = new DonationFee(100, 10);
+
+        // Lorsqu'on appelle la méthode getSummary
+        $actual = $donationFees->getSummary();
+
+        // Les clés existent
+        $this->assertArrayHasKey("donation",$actual);
+        $this->assertArrayHasKey("fixedFee",$actual);
+        $this->assertArrayHasKey("commission",$actual);
+        $this->assertArrayHasKey("fixedAndCollected",$actual);
+        $this->assertArrayHasKey("amountCollected",$actual);
+
+        // Les valeurs s'affichent
+        $this->assertEquals(100,$actual["donation"]);
+        $this->assertEquals(50,$actual["fixedFee"]);
+        $this->assertEquals(10,$actual["commission"]);
+        $this->assertEquals(60,$actual["fixedAndCollected"]);
+        $this->assertEquals(40,$actual["amountCollected"]);
+
+    }
+
 }
