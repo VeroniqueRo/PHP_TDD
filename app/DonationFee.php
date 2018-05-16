@@ -20,12 +20,16 @@ class DonationFee
     public function __construct($donation, $commissionPercentage)
     {
 
+        if (!is_int($donation/100) || $donation < 100)
+        {
+            throw new \Exception('Le montant de la donnation doit être supérieure à 100');
+        }
+        $this->donation = $donation;
+
         if ($commissionPercentage <= 0 || $commissionPercentage > 30)
         {
             throw new \Exception('Le montant de la commission est invalide');
         }
-
-        $this->donation = $donation;
         $this->commissionPercentage = $commissionPercentage;
 
     }

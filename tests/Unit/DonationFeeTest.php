@@ -48,12 +48,17 @@ class DonationFeeTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testException()
+    public function testCommisionPercentException()
     {
         $this->expectException(\Exception::class);
         $donationFees = new DonationFee(500, 50);
 
     }
 
+    public function testDonationException()
+    {
+        $this->expectException(\Exception::class);
+        $donationFees = new DonationFee(10, 10);
+    }
 
 }
