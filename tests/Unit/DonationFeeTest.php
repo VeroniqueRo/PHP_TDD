@@ -104,7 +104,7 @@ class DonationFeeTest extends TestCase
         $this->assertArrayHasKey("fixedAndCollected",$actual);
         $this->assertArrayHasKey("amountCollected",$actual);
 
-        // Les valeurs s'affichent
+        // Les valeurs affichées sont exactes
         $this->assertEquals(100,$actual["donation"]);
         $this->assertEquals(50,$actual["fixedFee"]);
         $this->assertEquals(10,$actual["commission"]);

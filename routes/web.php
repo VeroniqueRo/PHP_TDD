@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/project', function () {
+    return view('welcome');
+//    return response('OK 200', 200);
+});
