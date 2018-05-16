@@ -11,5 +11,5 @@ namespace App\Providers;
 
 class Commission
 {
-
+    const fixedFee = 50;
 }

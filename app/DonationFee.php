@@ -9,6 +9,8 @@
 namespace App;
 
 
+use App\Providers\Commission;
+
 class DonationFee
 {
 
@@ -37,7 +39,7 @@ class DonationFee
     public function getCommissionAmount()
     {
         /** @var TYPE_NAME $commission */
-        $commission = $this->donation/$this->commissionPercentage;
+        $commission = (($this->donation/100)*$this->commissionPercentage);
         return $commission;
     }
 
@@ -47,6 +49,23 @@ class DonationFee
         return $amount;
     }
 
+    public function getFixedAndCommissionFeeAmount()
+    {
+        /** @var TYPE_NAME $commission */
+        $fixedAndCommission = ($this->getCommissionAmount())+Commission::fixedFee;
 
+        if ($fixedAndCommission < 500)
+        {
+            $fixedAndCommission = ($this->getCommissionAmount())+Commission::fixedFee;
+
+        } else  {
+
+            $fixedAndCommission = 500;
+        }
+        echo "\nSi le montant de la commission variable est de ".($this->getCommissionAmount()/100)." Euros";
+        echo "\nEt les frais fixes de ".(Commission::fixedFee/100)." Euros";
+        echo "\nAlors le montant de la commission finale est de ".($fixedAndCommission/100)." Euros\n";
+        return $fixedAndCommission;
+    }
 
 }
