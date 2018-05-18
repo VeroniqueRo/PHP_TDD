@@ -89,10 +89,19 @@
         <div>
             <h1>Listes des projets</h1>
             <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Titre du Projet</th>
+                    <th>Description</th>
+                    <th>Auteur</th>
+                </tr>
+                </thead>
                 <tbody>
                 @foreach($projects as $project)
                     <tr>
-                        <td>{{$project->titre}}</td>
+                        <td>{{$project->ProjectTitle}}</td>
+                        <td>{{$project->Descriptive}}</td>
+                        <td></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -100,13 +109,11 @@
 
         </div>
 
-        {{--<div class="links">--}}
-            {{--<a href="https://laravel.com/docs">Documentation</a>--}}
-            {{--<a href="https://laracasts.com">Laracasts</a>--}}
-            {{--<a href="https://laravel-news.com">News</a>--}}
-            {{--<a href="https://forge.laravel.com">Forge</a>--}}
-            {{--<a href="https://github.com/laravel/laravel">GitHub</a>--}}
-        {{--</div>--}}
+        <div class="links">
+            <a href="{{ url('/')}}">Home</a>
+            <a href="{{ route('ListeDesProjets')}}">Liste des Projets</a>
+            <a href="https://laravel.com/docs">Documentation</a>
+        </div>
     </div>
 </div>
 </body>

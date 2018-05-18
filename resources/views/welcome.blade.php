@@ -79,15 +79,13 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <h1>Liste des projets</h1>
+                    Donnez vie à vos projets !
+                    <a  href="projet"><img class="imageProjet" alt="image projet"  src="../image/image-projet.jpg" /></a>
                 </div>
 
                 <div class="links">
+                    <a href="{{ route('ListeDesProjets')}}">Liste des Projets</a>
                     <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>
