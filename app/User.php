@@ -7,6 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    // Un auteur peut avoir plusieurs projets
+    public function project()
+    {
+        return $this->hasMany('App\Project');
+    }
+
     use Notifiable;
 
     /**

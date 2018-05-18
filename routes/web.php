@@ -15,5 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/project', 'ProjectController@index')->name('ListeDesProjets');
-//    return response('OK 200', 200);
+// Route vers la liste des projets
+Route::get('/projects', 'ProjectController@index')->name('ListeDesProjets');
+
+// Route vers le détail d'un projet
+Route::get('/project/{id}','ProjectController@detailProject')->name('DetailDuProjet');
+

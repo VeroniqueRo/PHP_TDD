@@ -13,6 +13,12 @@ class ProjectController extends Controller
    public function index()
    {
        $projects = Project::all();
-       return view('project', compact('projects'));
+       return view('projects', compact('projects'));
    }
+    function detailProject($id) {
+
+        $projects = Project::find($id);
+        return view('projectDetail', compact('projects'));
+
+    }
 }

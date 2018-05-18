@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Project</title>
+    <title>Project detail</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -84,26 +84,24 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Projets en cours
+            Détail du Projet
         </div>
         <div>
-            <h1>Listes des projets</h1>
+            <h1>{{$projects->ProjectTitle}}</h1>
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>Titre du Projet</th>
                     <th>Description</th>
                     <th>Auteur</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($projects as $project)
+
                     <tr>
-                        <td>{{$project->ProjectTitle}}</td>
-                        <td>{{$project->Descriptive}}</td>
+                        <td>{{$projects->Descriptive}}</td>
                         <td></td>
                     </tr>
-                @endforeach
+
                 </tbody>
             </table>
 
