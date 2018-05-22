@@ -45,6 +45,30 @@ class ProjectTest extends TestCase
         $response = $this->get('/projects');
 
         // On voit le nom du projet dans la page
-        $response->assertSee($project->titre);
+        $response->assertSee($project->ProjectTitle);
+    }
+
+    public function testNomDansDetailProject ()
+    {
+        // Etant donné une vue détaillée de chaque projet
+        $project = Factory(Project::class)->create();
+
+        // Lorsque l'on saisit l'url /project/id du projet
+        $response = $this->get('/project/'.$project->id);
+
+        // Le nom du projet est bien dans la page
+        $response->assertSee($project->ProjectTitle);
+    }
+
+    public function testDescriptionDansDetailProject ()
+    {
+        // Etant donné une vue détaillée de chaque projet
+        $project = Factory(Project::class)->create();
+
+        // Lorsque l'on saisit l'url /project/id du projet
+        $response = $this->get('/project/'.$project->id);
+
+        // Le descriptif du projet est bien dans la page
+        $response->assertSee($project->Descriptive);
     }
 }
