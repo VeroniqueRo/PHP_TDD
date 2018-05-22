@@ -97,6 +97,7 @@ class ProjectTest extends TestCase
 
         // Le nom de l'auteur du projet s'affiche bien dans la page
         $response->assertSee($project->user->name);
+
         dump($project->user->name);
     }
 }

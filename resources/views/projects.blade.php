@@ -42,7 +42,7 @@
                 @foreach($projects as $project)
                     <tr>
                         <td><a href="/project/{{$project->id}}">{{$project->ProjectTitle}}</td>
-                        <td>{{$project->user_id}}</td>
+                        <td>{{$project->user->name}}</td>
                     </tr>
                 @endforeach
                 </tbody>
