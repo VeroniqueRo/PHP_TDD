@@ -84,6 +84,19 @@ class ProjectTest extends TestCase
         $expected = $project->user->id;
         $this->assertEquals($expected, $actual);
 
-        dump($actual, $expected);
+//        dump($actual, $expected);
+    }
+
+    public function testNomAuteurSurPageDetail ()
+    {
+        // Etant donné une vue détaillée de chaque projet
+        $project = Factory(Project::class)->create();
+
+        // Lorsque l'on saisit l'url /project/id du projet
+        $response = $this->get('/project/'.$project->id);
+
+        // Le nom de l'auteur du projet s'affiche bien dans la page
+        $response->assertSee($project->user->name);
+        dump($project->user->name);
     }
 }
