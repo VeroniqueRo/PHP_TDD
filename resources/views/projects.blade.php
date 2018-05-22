@@ -53,7 +53,8 @@
         <div class="links">
             <a href="{{ url('/')}}">Home</a>
             <a href="{{ route('ListeDesProjets')}}">Liste des Projets</a>
-            <a href="https://laravel.com/docs">Documentation</a>
+            <a href="https://laravel.com/docs">Documentation Laravel</a>
+            <a href="https://laravel.sillo.org/creer-une-application-avec-laravel-5-5-les-tests/">laravel.sillo.org</a>
         </div>
     </div>
 </div>

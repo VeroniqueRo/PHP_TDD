@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
-use App\Project;
 
-class DatabaseSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        $this->call(UsersTableSeeder::class);
+
+//        factory(App\User::class, 50)->create()->each(function ($u) {
+//            $u->posts()->save(factory(App\Project::class)->make());
+//        });
+
         User::create(
             [
 
@@ -23,14 +26,5 @@ class DatabaseSeeder extends Seeder
                 'project_id'     => 2,
             ]
         );
-
-        Project::create(
-
-            [
-            'ProjectTitle'=>"Mon deuxième super projet",
-                'Descriptive'=>"L’objectif est de remplir la base de données avec un Seeder.",
-            ]
-        );
-
     }
 }

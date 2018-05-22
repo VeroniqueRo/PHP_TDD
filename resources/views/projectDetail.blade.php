@@ -30,7 +30,7 @@
             Détail du Projet
         </div>
         <div>
-            <h1>{{$projects->ProjectTitle}}</h1>
+            <h1>{{$project->ProjectTitle}}</h1>
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
@@ -41,8 +41,8 @@
                 <tbody>
 
                     <tr>
-                        <td>{{$projects->Descriptive}}</td>
-                        <td></td>
+                        <td>{{$project->Descriptive}}</td>
+                        <td>{{$user->name}}</td>
                     </tr>
 
                 </tbody>
@@ -51,7 +51,8 @@
         <div class="links">
             <a href="{{ url('/')}}">Home</a>
             <a href="{{ route('ListeDesProjets')}}">Liste des Projets</a>
-            <a href="https://laravel.com/docs">Documentation</a>
+            <a href="https://laravel.com/docs">Documentation Laravel</a>
+            <a href="https://laravel.sillo.org/creer-une-application-avec-laravel-5-5-les-tests/">laravel.sillo.org</a>
         </div>
     </div>
 </div>
