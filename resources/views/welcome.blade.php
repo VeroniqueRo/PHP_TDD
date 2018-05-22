@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Home</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -80,9 +80,8 @@
             <div class="content">
                 <div class="title m-b-md">
                     Donnez vie à vos projets !
-                    <a  href="projet"><img class="imageProjet" alt="image projet"  src="../image/image-projet.jpg" /></a>
+                    <br><a  href="projet"><img class="imageProjet" alt="image projet"  src="../image/image-projet.jpg" /></a>
                 </div>
-
                 <div class="links">
                     <a href="{{ route('ListeDesProjets')}}">Liste des Projets</a>
                     <a href="https://laravel.com/docs">Documentation</a>
