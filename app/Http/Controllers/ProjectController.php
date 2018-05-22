@@ -14,6 +14,7 @@ class ProjectController extends Controller
    public function index()
    {
        $projects = Project::all();
+//       $users = $projects->users->find($projects->user_id);
        return view('projects', compact('projects'));
    }
     function detailProject($id) {

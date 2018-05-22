@@ -39,12 +39,10 @@
                 </tr>
                 </thead>
                 <tbody>
-
                     <tr>
                         <td>{{$project->Descriptive}}</td>
                         <td>{{$user->name}}</td>
                     </tr>
-
                 </tbody>
             </table>
         </div>

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProjectTest extends TestCase
 {
+    // Pour réinitialiser la BDD à chaque lancement des tests
     use RefreshDatabase;
     /**
      * Test fonctionnel sur le succès d'une requête
@@ -70,5 +71,19 @@ class ProjectTest extends TestCase
 
         // Le descriptif du projet est bien dans la page
         $response->assertSee($project->Descriptive);
+    }
+
+    public function testModelRelation()
+    {
+        // Etant donné une relation One to Many entre les Model User et Project
+        $project = Factory(Project::class)->create();
+
+        // Lorsqu'on appelle l'user_id de la table Projects
+        $actual = $project->user_id;
+        // Alors  on obtient le même id existant dans la table Users
+        $expected = $project->user->id;
+        $this->assertEquals($expected, $actual);
+
+        dump($actual, $expected);
     }
 }
