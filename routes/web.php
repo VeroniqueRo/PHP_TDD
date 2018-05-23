@@ -25,3 +25,4 @@ Route::get('/project/{id}','ProjectController@detailProject')->name('DetailDuPro
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
