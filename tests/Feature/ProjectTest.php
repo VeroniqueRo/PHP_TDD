@@ -3,9 +3,11 @@
 namespace Tests\Feature;
 
 use App\Project;
+use App\User;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+Use Illuminate\Auth\Authentication;
 
 class ProjectTest extends TestCase
 {
@@ -99,5 +101,24 @@ class ProjectTest extends TestCase
         $response->assertSee($project->user->name);
 
         dump($project->user->name);
+    }
+
+    public function testUtilisateurConnectePouvantAjouterUnProjet ()
+    {
+        // Etant donné un utilisateur créé
+        $user = factory(User::class)->create();
+
+        // Authentifie un utilisateur donné en tant qu'utilisateur actuel
+        $this->actingAs($user)
+            ->withSession(['foo' => 'bar']);
+
+        // Lorsque l'on va sur l'url de création de projet
+        $response = $this->get('/projectAjout');
+
+        // L'utiliser &tant considéré comme l'utilisateur actuel
+        $this->be($user);
+
+        // Le nom de l'auteur du projet s'affiche bien dans la page
+        $response->assertSee('Bonjour '.$user->name);
     }
 }
