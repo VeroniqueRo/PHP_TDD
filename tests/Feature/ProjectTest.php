@@ -40,7 +40,7 @@ class ProjectTest extends TestCase
     public function testListOfProjects()
     {
         // Etant donné la création d'une base de données des projets
-        $project = Factory(Project::class)->create();
+        $project = Factory("App\Project")->create();
 
         // Lorsque l'on saisit l'url /project
         $response = $this->get('/projects');
@@ -63,7 +63,7 @@ class ProjectTest extends TestCase
 
     public function testDescriptionDansDetailProject ()
     {
-        // Etant donné une vue détaillée de chaque projet
+        // Etant donné que je crée un projet
         $project = Factory(Project::class)->create();
 
         // Lorsque l'on saisit l'url /project/id du projet

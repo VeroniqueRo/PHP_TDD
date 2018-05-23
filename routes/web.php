@@ -18,8 +18,15 @@ Route::get('/', function () {
 // Route vers la liste des projets
 Route::get('/projects', 'ProjectController@index')->name('ListeDesProjets');
 
+
 // Route vers le détail d'un projet
 Route::get('/project/{id}','ProjectController@detailProject')->name('DetailDuProjet');
+
+
+// Routes vers le formulaire d'ajout d'un projet
+Route::get('/projectAjout','ProjectController@create')->name('FormAjoutUnProjet')->middleware('auth');
+Route::post('/projects/liste','ProjectController@store')->name('AjoutUnProjet')->middleware('auth');
+//Route::post('/projects/liste','ProjectController@store')->name('AjoutUnProjet');
 
 
 Auth::routes();

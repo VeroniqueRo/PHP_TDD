@@ -50,7 +50,7 @@ class DonationFee
      */
     public function getAmountCollected()
     {
-        $amount = $this->donation-$this->getCommissionAmount();
+        $amount = $this->donation-$this->getFixedAndCommissionFeeAmount();
         return $amount;
     }
 
@@ -87,7 +87,7 @@ class DonationFee
             "fixedFee" => Commission::fixedFee,
             "commission" => $this->getCommissionAmount(),
             "fixedAndCollected" => $this->getFixedAndCommissionFeeAmount(),
-            "amountCollected" => $this->donation-$this->getFixedAndCommissionFeeAmount()
+            "amountCollected" => $this->getAmountCollected()
         );
         echo "\nValeurs du tableau Summary \n";
         foreach ($summary as $key => $value)

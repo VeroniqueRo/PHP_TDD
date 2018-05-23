@@ -1,4 +1,4 @@
-
+<!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
@@ -9,8 +9,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-        <link href="/css/stylesheet.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">        <link href="/css/stylesheet.css" rel="stylesheet" type="text/css">
         
     </head>
         <header>
@@ -22,7 +21,9 @@
                 <div class="title m-b-md">
                     @yield('titre')
                 </div>
+                <div class="container">
                     @yield('content')
+                </div>
             </div>
         </section>
     </body>
