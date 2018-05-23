@@ -109,13 +109,13 @@ class ProjectTest extends TestCase
         $user = factory(User::class)->create();
 
         // Authentifie un utilisateur donné en tant qu'utilisateur actuel
-        $this->actingAs($user)
-            ->withSession(['foo' => 'bar']);
+        $this->actingAs($user);
+//            ->withSession(['foo' => 'bar']);
 
         // Lorsque l'on va sur l'url de création de projet
         $response = $this->get('/projectAjout');
 
-        // L'utiliser &tant considéré comme l'utilisateur actuel
+        // L'utilisateur étant considéré comme l'utilisateur actuel
         $this->be($user);
 
         // Le nom de l'auteur du projet s'affiche bien dans la page
