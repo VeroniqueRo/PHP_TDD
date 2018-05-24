@@ -35,7 +35,7 @@ class ProjectTest extends TestCase
         // Lorsque l'on saisit l'url /projects
         $response = $this->get('/projects');
 
-        // La balise h1 contenant la liste des projets s'affiche
+        // La balise h1 contenant la liste des projets s'affiche dans la page
         $response->assertSee('<h1>Listes des projets</h1>');
     }
 
@@ -100,25 +100,50 @@ class ProjectTest extends TestCase
         // Le nom de l'auteur du projet s'affiche bien dans la page
         $response->assertSee($project->user->name);
 
-        dump($project->user->name);
+//        dump($project->user->name);
     }
 
-    public function testUtilisateurConnectePouvantAjouterUnProjet ()
+    public function testUtilisateurConnectePeutAfficherFormulaireCreationProjet ()
     {
         // Etant donné un utilisateur créé
         $user = factory(User::class)->create();
 
-        // Authentifie un utilisateur donné en tant qu'utilisateur actuel
+        // Que l'on authentifie en tant qu'utilisateur actuel
         $this->actingAs($user);
-//            ->withSession(['foo' => 'bar']);
 
         // Lorsque l'on va sur l'url de création de projet
         $response = $this->get('/projectAjout');
 
-        // L'utilisateur étant considéré comme l'utilisateur actuel
-        $this->be($user);
-
         // Le nom de l'auteur du projet s'affiche bien dans la page
         $response->assertSee('Bonjour '.$user->name);
     }
+
+    public function testUtilisateurConnectePeutAjouterNouveauProjet()
+    {
+        // Etant donné un utilisateur créé
+        $user = factory(User::class)->create();
+        // Que l'on authentifie en tant qu'utilisateur actuel
+        // Que l'on va sur la page de création de projet
+        // On peut voir le nom de l'utilisateur affiché
+        $this->actingAs($user)
+            ->get('/projectAjout')
+            ->assertSee('Bonjour '.$user->name);
+
+        // Lorsque l'on soumet un formulaire d'ajout de projet
+        $projet = [
+            'projecttitle' => 'Test Ajout de Projet',
+            'projectdescriptive'=>'Projet test',
+        ];
+
+        $this->post('/projects/liste', $projet);
+
+        // Quand on se rend sur la page des projets
+        $response = $this->get('/projects');
+
+        // Alors le projet apparait dans la liste des projets
+        $response->assertSee('Test Ajout de Projet');
+    }
+
+
+
 }
