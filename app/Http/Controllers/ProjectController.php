@@ -17,6 +17,7 @@ class ProjectController extends Controller
    {
        $projects = Project::all();
 //       $users = $projects->users->find($projects->user_id);
+//       return view('projects', compact('projects'));
        return view('projects', compact('projects'));
    }
     function detailProject($id) {
@@ -46,4 +47,20 @@ class ProjectController extends Controller
         return redirect('/projects');
 
     }
+
+    // Fonctions de modification d'un projet
+    public function edit($id) {
+        $projet = Project::where('id',$id)->get();
+        return view('projectModif', ['projetAModifier'=>$projet[0]]);
+    }
+    public function update($id)
+    {
+        $modifProjet = Project::find($id);
+        $modifProjet->ProjectTitle = request('newprojecttitle');
+        $modifProjet->Descriptive = request('newprojectdescriptive');
+
+        $modifProjet->save();
+        return redirect('/projects');
+    }
+
 }

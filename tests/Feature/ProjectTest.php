@@ -111,8 +111,9 @@ class ProjectTest extends TestCase
 
     public function testUtilisateurConnectePeutAjouterNouveauProjet()
     {
-        // Etant donné un utilisateur créé
+        // Etant donné un utilisateur et un projet créé
         $user = factory(User::class)->create();
+        $project = factory("App\Project")->create();
         // Que l'on authentifie en tant qu'utilisateur actuel
         // Que l'on va sur la page de création de projet
         // On peut voir le nom de l'utilisateur affiché
@@ -121,27 +122,27 @@ class ProjectTest extends TestCase
             ->assertSee('Bonjour '.$user->name);
         // Lorsque l'on soumet un formulaire d'ajout de projet
         $projet = [
-            'projecttitle' => 'Test Ajout de Projet',
-            'projectdescriptive'=>'Projet test',
+            'projecttitle' => $project->ProjectTitle,
+            'projectdescriptive'=>$project->Descriptive,
         ];
 
         $this->post('/projects/liste', $projet);
         // Quand on se rend sur la page des projets
         $response = $this->get('/projects');
         // Alors le projet apparait dans la liste des projets
-        $response->assertSee('Test Ajout de Projet');
+        $response->assertSee($project->ProjectTitle);
     }
 
     public function testUtilisateurNonConnectePeutPasAjouterNouveauProjet()
     {
         // Etant donné un utilisateur qui va sur le site sans se connecter
-        // On attend une exception unauthentification
+        // On lève une exception unauthentification
         $this->expectException(AuthenticationException::class);
 
         // Lorsque l'on soumet un formulaire d'ajout de projet
         $projet = [
-            'projecttitle' => 'Test Ajout de Projet',
-            'projectdescriptive'=>'Projet test',
+            'projecttitle' => 'Test Nouveau Projet',
+            'projectdescriptive'=>'Nouvelle description',
         ];
 
         $this->post('/projects/liste', $projet);
@@ -157,6 +158,21 @@ class ProjectTest extends TestCase
         $this->get('/projectAjout');
 
     }
+
+//    public function testSeulAuteurDuProjetPeutEditer ()
+//    {
+//        // Etant donné un utilisateur créé
+//        $user = factory(User::class)->create();
+//        // Que l'on authentifie en tant qu'utilisateur actuel
+//        $this->actingAs($user);
+//        // Etant donné son projet créé
+//        $project = Factory("App\Project")->create();
+//
+//        // Lorsque l'on va sur l'url de création de projet
+//        $response = $this->get('/projectModif');
+//        // Le nom de l'auteur du projet s'affiche bien dans la page
+//        $response->assertSee('Bonjour '.$user->name);
+//    }
 
 
 }
