@@ -18,4 +18,10 @@
         </tr>
         </tbody>
     </table>
+    <a href="/projectModif/{{$project->id}}">
+        <button type="button" class="btn btn-success">Modifier</button>
+    </a>
+    <a href="{{ route('ListeDesProjets')}}">
+        <button type="button" class="btn btn-info">Annuler</button>
+    </a>
 @endsection

@@ -113,7 +113,6 @@ class ProjectTest extends TestCase
     {
         // Etant donné un utilisateur et un projet créé
         $user = factory(User::class)->create();
-        $project = factory("App\Project")->create();
         // Que l'on authentifie en tant qu'utilisateur actuel
         // Que l'on va sur la page de création de projet
         // On peut voir le nom de l'utilisateur affiché
@@ -122,15 +121,15 @@ class ProjectTest extends TestCase
             ->assertSee('Bonjour '.$user->name);
         // Lorsque l'on soumet un formulaire d'ajout de projet
         $projet = [
-            'projecttitle' => $project->ProjectTitle,
-            'projectdescriptive'=>$project->Descriptive,
+            'projecttitle' => 'Test Nouveau Projet',
+            'projectdescriptive'=>'Nouvelle description',
         ];
 
         $this->post('/projects/liste', $projet);
         // Quand on se rend sur la page des projets
         $response = $this->get('/projects');
         // Alors le projet apparait dans la liste des projets
-        $response->assertSee($project->ProjectTitle);
+        $response->assertSee('Test Nouveau Projet');
     }
 
     public function testUtilisateurNonConnectePeutPasAjouterNouveauProjet()

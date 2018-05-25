@@ -9,26 +9,28 @@ use App\Project;
 use App\User;
 
 
-
-
 class ProjectController extends Controller
 {
-   public function index()
-   {
-       $projects = Project::all();
+    public function index()
+    {
+        $projects = Project::all();
 //       $users = $projects->users->find($projects->user_id);
 //       return view('projects', compact('projects'));
-       return view('projects', compact('projects'));
-   }
-    function detailProject($id) {
+        return view('projects', compact('projects'));
+    }
+
+    function detailProject($id)
+    {
 
         $project = Project::find($id);
         $user = $project->user->find($project->user_id);
-        return view('projectDetail', compact('project','user'));
+        return view('projectDetail', compact('project', 'user'));
 
     }
+
     // Fonctions d'ajout d'un projet
-    public function create() {
+    public function create()
+    {
 
         $user = User::all();
         return view('projectAjout');
@@ -49,10 +51,19 @@ class ProjectController extends Controller
     }
 
     // Fonctions de modification d'un projet
-    public function edit($id) {
-        $projet = Project::where('id',$id)->get();
-        return view('projectModif', ['projetAModifier'=>$projet[0]]);
+    public function edit($id)
+    {
+        $project = Project::find($id);
+//        dump($project);
+
+        if ( $project->user_id === Auth::user()->id) {
+            return view('projectModif', compact('project', 'user'));
+        }
+
+        return view('erreur', compact('user'));
+
     }
+
     public function update($id)
     {
         $modifProjet = Project::find($id);
