@@ -222,12 +222,12 @@ class ProjectTest extends TestCase
         $project = Factory(Project::class)->make();
         // Etant donné un utilisateur créé
         $user = factory(User::class)->create();
-        // Lorsqus l'utilisateur tente de modifier un projet dont il n'est pas l'auteur
+        // Lorsque l'utilisateur tente de modifier un projet dont il n'est pas l'auteur
         $data = [
             'projecttitle' => $project->ProjectTitle,
             'projectdescriptive'=>$project->Descriptive,
         ];
-        // L'utilisateur authentifié en tant qu'utilisateur actuel
+        // L'utilisateur authentifié en tant qu'utilisateur actuelle
         $this->actingAs($user)
             ->put('/project/'.$project->id, $data);
     }
