@@ -63,8 +63,14 @@ class ProjectController extends Controller
         $modifProjet->ProjectTitle = request('newprojecttitle');
         $modifProjet->Descriptive = request('newprojectdescriptive');
 
-        $modifProjet->save();
-        return redirect('/projects');
+        if ($modifProjet->user_id === Auth::user()->id)
+        {
+            $modifProjet->save();
+            return redirect('/projects');
+
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
 
 }

@@ -9,6 +9,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 Use Illuminate\Auth\Authentication;
 use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ProjectTest extends TestCase
 {
@@ -137,6 +138,7 @@ class ProjectTest extends TestCase
     {
         // Etant donné un utilisateur et un projet créé
         $user = factory(User::class)->create();
+        $project = factory(Project::class)->make();
         // Que l'on authentifie en tant qu'utilisateur actuel
         // Que l'on va sur la page de création de projet
         // On peut voir le nom de l'utilisateur affiché
@@ -145,15 +147,15 @@ class ProjectTest extends TestCase
             ->assertSee('Bonjour '.$user->name);
         // Lorsque l'on soumet un formulaire d'ajout de projet
         $projet = [
-            'projecttitle' => 'Test Nouveau Projet',
-            'projectdescriptive'=>'Nouvelle description',
+            'projecttitle' => $project->ProjectTitle,
+            'projectdescriptive'=>$project->Descriptive,
         ];
 
         $this->post('/projects/liste', $projet);
         // Quand on se rend sur la page des projets
         $response = $this->get('/projects');
         // Alors le projet apparait dans la liste des projets
-        $response->assertSee('Test Nouveau Projet');
+        $response->assertSee($project->ProjectTitle);
     }
 
     /**
@@ -162,18 +164,19 @@ class ProjectTest extends TestCase
      */
     public function testUtilisateurNonConnectePeutPasAjouterNouveauProjet()
     {
-        // Etant donné un utilisateur qui va sur le site sans se connecter
+        // Etant donné un projet créé
+        $project = Factory(Project::class)->make();
+        // Lorsqu'un utilisateur va sur le site sans se connecter
         // On lève une exception unauthentification
         $this->expectException(AuthenticationException::class);
 
         // Lorsque l'on soumet un formulaire d'ajout de projet
         $projet = [
-            'projecttitle' => 'Test Nouveau Projet',
-            'projectdescriptive'=>'Nouvelle description',
+            'projecttitle' => $project->ProjectTitle,
+            'projectdescriptive'=>$project->Descriptive,
         ];
 
         $this->post('/projects/liste', $projet);
-
     }
 
     /**
@@ -207,5 +210,25 @@ class ProjectTest extends TestCase
         $response->assertSee('Vous ne pouvez pas modifier ce projet');
     }
 
-
+    /**
+     * Test levant une exception HttpException lorsqu'un utilisateur tente de modifier
+     * un projet qui n'est pas le sien
+     */
+    public function testAuteurPeutPasModifierAutreProjetQueLeSien()
+    {
+        // On lève une exception unauthentification
+        $this->expectException(HttpException::class);
+        // Etant donné un projet créé
+        $project = Factory(Project::class)->make();
+        // Etant donné un utilisateur créé
+        $user = factory(User::class)->create();
+        // Lorsqus l'utilisateur tente de modifier un projet dont il n'est pas l'auteur
+        $data = [
+            'projecttitle' => $project->ProjectTitle,
+            'projectdescriptive'=>$project->Descriptive,
+        ];
+        // L'utilisateur authentifié en tant qu'utilisateur actuel
+        $this->actingAs($user)
+            ->put('/project/'.$project->id, $data);
+    }
 }
