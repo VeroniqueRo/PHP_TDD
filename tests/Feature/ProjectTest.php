@@ -216,18 +216,17 @@ class ProjectTest extends TestCase
      */
     public function testAuteurPeutPasModifierAutreProjetQueLeSien()
     {
-        // On lève une exception unauthentification
+        // On lève une exception HttpException
         $this->expectException(HttpException::class);
         // Etant donné un projet créé
         $project = Factory(Project::class)->make();
-        // Etant donné un utilisateur créé
+        // Et un utilisateur créé
         $user = factory(User::class)->create();
-        // Lorsque l'utilisateur tente de modifier un projet dont il n'est pas l'auteur
+        // Lorsque l'utilisateur authentifié tente de modifier un projet dont il n'est pas l'auteur
         $data = [
             'projecttitle' => $project->ProjectTitle,
             'projectdescriptive'=>$project->Descriptive,
         ];
-        // L'utilisateur authentifié en tant qu'utilisateur actuelle
         $this->actingAs($user)
             ->put('/project/'.$project->id, $data);
     }
