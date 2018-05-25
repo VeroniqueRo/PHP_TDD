@@ -54,14 +54,7 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = Project::find($id);
-//        dump($project);
-
-        if ( $project->user_id === Auth::user()->id) {
-            return view('projectModif', compact('project', 'user'));
-        }
-
-        return view('erreur', compact('user'));
-
+        return view('projectModif', compact('project'));
     }
 
     public function update($id)

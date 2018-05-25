@@ -32,6 +32,3 @@ Route::put('/project/{id}', 'ProjectController@update')->name('modifProjet')->mi
 // Routes d'authentification
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
-// Route erreur redirection vers liste des projets
-Route::get('/erreur', 'ProjectController@index')->name('Erreur');

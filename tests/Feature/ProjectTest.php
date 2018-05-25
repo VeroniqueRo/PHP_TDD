@@ -27,7 +27,7 @@ class ProjectTest extends TestCase
     }
 
     /**
-     * Test fonctionnel sur la présence de la balise h1 et du texte associé
+     * TEST fonctionnel sur la présence de la balise h1 et du texte associé
      */
     public function testValidH1()
     {
@@ -38,6 +38,10 @@ class ProjectTest extends TestCase
         $response->assertSee('<h1>Listes des projets</h1>');
     }
 
+    /**
+     * TEST fonctionnel validant la présence du titre d’un projet
+     * sur la page de liste des projets
+     */
     public function testListOfProjects()
     {
         // Etant donné la création d'une base de données des projets
@@ -48,6 +52,10 @@ class ProjectTest extends TestCase
         $response->assertSee($project->ProjectTitle);
     }
 
+    /**
+     * TEST fonctionnel validant la présence du nom de l’auteur d’un projet
+     * sur la page de détails d’un projet
+     */
     public function testNomDansDetailProject ()
     {
         // Etant donné une vue détaillée de chaque projet
@@ -58,6 +66,10 @@ class ProjectTest extends TestCase
         $response->assertSee($project->ProjectTitle);
     }
 
+    /**
+     * TEST fonctionnel validant la présence du descriptif d’un projet
+     * sur la page de détails d’un projet
+     */
     public function testDescriptionDansDetailProject ()
     {
         // Etant donné que je crée un projet
@@ -69,7 +81,7 @@ class ProjectTest extends TestCase
     }
 
     /**
-     * Test unitaire de la relation One to Many entre les Model User et Project
+     * TEST unitaire validant la relation entre les models ​Project​ et ​User
      */
     public function testModelRelation()
     {
@@ -85,6 +97,10 @@ class ProjectTest extends TestCase
 //        dump($project->user->name);
     }
 
+    /**
+     * TEST fonctionnel validant la présence du nom de l’auteur d’un projet sur
+     * la page de détails d’un projet
+     */
     public function testNomAuteurSurPageDetail ()
     {
         // Etant donné une vue détaillée de chaque projet
@@ -97,6 +113,10 @@ class ProjectTest extends TestCase
 //        dump($project->user->name);
     }
 
+    /**
+     * TEST fonctionnel validant qu’un utilisateur connecté peut afficher
+     * la page de création un projet
+     */
     public function testUtilisateurConnectePeutAfficherFormulaireCreationProjet ()
     {
         // Etant donné un utilisateur créé
@@ -109,6 +129,10 @@ class ProjectTest extends TestCase
         $response->assertSee('Bonjour '.$user->name);
     }
 
+    /**
+     * TEST fonctionnel validant qu’un utilisateur connecté
+     * peut ajouter un projet
+     */
     public function testUtilisateurConnectePeutAjouterNouveauProjet()
     {
         // Etant donné un utilisateur et un projet créé
@@ -132,6 +156,10 @@ class ProjectTest extends TestCase
         $response->assertSee('Test Nouveau Projet');
     }
 
+    /**
+     * TEST fonctionnel validant qu’un utilisateur non connecté
+     * ne peut pas ajouter un projet
+     */
     public function testUtilisateurNonConnectePeutPasAjouterNouveauProjet()
     {
         // Etant donné un utilisateur qui va sur le site sans se connecter
@@ -148,6 +176,10 @@ class ProjectTest extends TestCase
 
     }
 
+    /**
+     * TEST validant qu’un utilisateur non connecté ne peut pas afficher
+     * le formulaire de création d’un projet
+     */
     public function testUtilisateurNonConnecteNePeutAjouterNouveauProjet()
     {
         // Etant donné un utilisateur qui va sur le site sans se connecter
@@ -158,20 +190,22 @@ class ProjectTest extends TestCase
 
     }
 
-//    public function testSeulAuteurDuProjetPeutEditer ()
-//    {
-//        // Etant donné un utilisateur créé
-//        $user = factory(User::class)->create();
-//        // Que l'on authentifie en tant qu'utilisateur actuel
-//        $this->actingAs($user);
-//        // Etant donné son projet créé
-//        $project = Factory("App\Project")->create();
-//
-//        // Lorsque l'on va sur l'url de création de projet
-//        $response = $this->get('/projectModif');
-//        // Le nom de l'auteur du projet s'affiche bien dans la page
-//        $response->assertSee('Bonjour '.$user->name);
-//    }
+    /**
+     * TEST validant que seul l’auteur d’un projet peut l’éditer
+     */
+    public function testSeulAuteurDuProjetPeutEditer ()
+    {
+        // Etant donné un utilisateur créé
+        $user = factory(User::class)->create();
+        // Que l'on authentifie en tant qu'utilisateur actuel
+        $this->actingAs($user);
+        // Etanr donné un projet créé par un autre utilisateur
+        $project = factory(Project::class)->create();
+        // Lorsque l'on va sur l'url de modification du projet
+        $response = $this->get('/projectModif/'.($project->id));
+        // Un message d'erreur s'affiche dans la page
+        $response->assertSee('Vous ne pouvez pas modifier ce projet');
+    }
 
 
 }
